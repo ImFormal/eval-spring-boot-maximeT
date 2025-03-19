@@ -8,7 +8,6 @@ import com.adrar.evalspring.repository.CategorieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 public class CategorieService {
@@ -23,16 +22,15 @@ public class CategorieService {
         return categorieRepository.findAll();
     }
 
-    public Optional<Categorie> getCategorieById(int id) {
+    public Categorie getCategorieById(int id) {
         if(!categorieRepository.existsById(id)){
             throw new CategorieNotFoundException(id);
         }
-
-        return categorieRepository.findById(id);
+        return categorieRepository.findById(id).get();
     }
 
     public Categorie addCategorie(Categorie categorie) {
-        if(categorieRepository.findByLibele(categorie.getLibele())) {
+        if(!categorieRepository.findByLibele(categorie.getLibele()).isEmpty()){
             throw new AddCategorieAlreadyExistsException();
         }
         return categorieRepository.save(categorie);

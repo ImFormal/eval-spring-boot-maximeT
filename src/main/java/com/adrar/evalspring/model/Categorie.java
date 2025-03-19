@@ -9,13 +9,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@Table(name = "categorie")
 public class Categorie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
-    @Column(name = "libele", nullable = false)
+    @Column(name = "libele", unique = true, nullable = false)
     @NotBlank(message = "le libele doit être renseigné")
     @Size(min = 2, message = "Le libele doit posséder au moins 2 caractères")
     private String libele;
@@ -23,7 +24,7 @@ public class Categorie {
     public Categorie() {
     }
 
-    public Categorie(int id, String libele) {
+    public Categorie(Integer id, String libele) {
         this.id = id;
         this.libele = libele;
     }

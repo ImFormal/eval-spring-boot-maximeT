@@ -8,8 +8,6 @@ import com.adrar.evalspring.repository.ProduitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class ProduitService {
 
@@ -23,16 +21,15 @@ public class ProduitService {
         return produitRepository.findAll();
     }
 
-    public Optional<Produit> getProduitById(int id) {
+    public Produit getProduitById(int id) {
         if(!produitRepository.existsById(id)){
             throw new ProduitNotFoundException(id);
         }
-
-        return produitRepository.findById(id);
+        return produitRepository.findById(id).get();
     }
 
     public Produit addProduit(Produit produit) {
-        if(produitRepository.findByNom(produit.getNom())) {
+        if(!produitRepository.findByNom(produit.getNom()).isEmpty()){
             throw new AddProduitAlreadyExistsException();
         }
         return produitRepository.save(produit);
