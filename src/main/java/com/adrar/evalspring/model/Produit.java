@@ -27,6 +27,10 @@ public class Produit {
     @Size(min = 3, message = "Le nom doit posséder au moins 3 caractères")
     private double prix;
 
+    @ManyToOne
+    @JoinColumn(name = "id_categorie")
+    private Categorie categorie;
+
     public Produit() {
     }
 
@@ -42,6 +46,7 @@ public class Produit {
                 "id=" + id +
                 ", nom='" + nom + '\'' +
                 ", prix=" + prix +
+                ", catégorie=" + categorie +
                 '}';
     }
 }
