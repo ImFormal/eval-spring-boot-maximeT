@@ -4,7 +4,11 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 public class Produit {
 
@@ -32,4 +36,12 @@ public class Produit {
         this.prix = prix;
     }
 
+    @Override
+    public String toString() {
+        return "Produit{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", prix=" + prix +
+                '}';
+    }
 }
